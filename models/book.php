@@ -6,9 +6,9 @@ class book{
 	private $author;
 
 	public function __construct(array $data){
-		$this->id= $data['id'];
-		$this->title = $data['title'];
-		$this->author = $data['author'];
+		$this->id = $data['book_id'];
+		$this->title = $data['book_title'];
+		$this->author = $data['book_author'];
 	}
 
 	public function getId(){

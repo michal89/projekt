@@ -20,6 +20,13 @@
  		<?php 
  			if(isset($_GET['search'])&&$_GET['search']=="ok"){
  				include 'process/findbook.php';
+ 				if($viewBag!=false){
+					echo "<table border='solid'>";
+					foreach ($viewBag as $book) {
+					 	echo "<tr><td>".$book->getId()."</td><td>".$book->getTitle()."</td></tr>";
+					 } 
+					 echo "</table>";
+				}
  			}
  		 ?>
  	</div>

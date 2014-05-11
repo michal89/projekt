@@ -1,10 +1,11 @@
 projekt SAIU
 =======
-Folder content - tam pakujemy css i js
-Folder models - wszelkie klasy reprezentujace informacje z bazy danych badz na niej operujace
-Folder process - logika przetwarzajaca dane m.in get/post z formularzy html, niekoniecznie obiektowo
-Do aplikacji polecam serwer XAMPP
-Ponizej struktura tymczasowej bazy danych
+Folder content - tam pakujemy css i js;
+Folder models - wszelkie klasy reprezentujace informacje z bazy danych badz na niej operujace;
+Folder process - logika przetwarzajaca dane m.in get/post z formularzy html, niekoniecznie obiektowo;
+Do aplikacji polecam serwer XAMPP.
+
+Ponizej struktura tymczasowej bazy danych:
 
 
 =======

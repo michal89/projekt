@@ -20,8 +20,9 @@ require_once 'book.php';
 	}
 
 	public function findBooks($name="",$surname="",$title=""){
-		$sql='SELECT * FROM books WHERE book_title LIKE "'.$title.'%"'; //poprawic zapytanie (join authors i
-																		//szukanie po imieniu i nazwisku autora)
+		$sql="SELECT * FROM books LEFT JOIN authors ON (books.book_author=authors.author_id)";
+		$sql.= "WHERE (book_title LIKE '%".$title."%' AND author_surname LIKE '%".$surname."' AND author_name LIKE '%".$name."')";
+		echo $sql;
 		$result=$this->query($sql);
 		if($result){
 			$objects = array();

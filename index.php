@@ -18,13 +18,14 @@
 
  	<div id="findResult">
  		<?php 
- 		print_r($_GET);
  			if(isset($_GET['search'])&&$_GET['search']=="ok"){
  				include 'process/findbook.php';
  				if($viewBag!=false){
+ 					echo "<p>Znaleziono ".count($viewBag)." pozycji:</p>";
 					echo "<table border='solid'>";
 					foreach ($viewBag as $book) {
-					 	echo "<tr><td>".$book->getAuthor()."</td><td>".$book->getTitle()."</td></tr>";
+
+					 	echo "<tr><td>".$book->getAuthor()."</td><td>".$book->getTitle()."</td><td>".($book->getIsBorrowed()==1 ? "wypożyczona" : "dostepna/<a href='#'>wypożycz</a>")."</td></tr>";
 					 } 
 					 echo "</table>";
 				}

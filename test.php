@@ -1,8 +1,10 @@
-<?php 
-//plik do testowania funkcjonalnosci
+<?php
+// $_POST['authorName'] = "";
+// $_POST['authorSurname'] = "";
+// $_POST['title'] = "";
+// $_POST['currentPage'] = 3;
 
-require_once 'models/database.php';
+// require_once 'models/database.php';
+// require_once 'process/findbook.php';
 
-$ob = new database();
-$result = $ob->findBooks("","Sapkowski","pan");
-print_r($result);
+

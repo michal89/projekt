@@ -4,34 +4,70 @@
  	<meta charset="utf-8">
  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
  	<title></title>
- 	<link rel="stylesheet" href="">
+ 	<link type="text/css" rel="stylesheet" href="content/simplePagination.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="content/jquery.simplePagination.js"></script>
+    <script> 
+    var currentPage = 1; 
+    var data;
+    var json;
+
+     $(document).ready(function(){ 
+        function pobierz(){
+            data = {authorName: $('#authorName').val(),
+                    authorSurname: $('#authorSurname').val(),
+                    title: $('#title').val(),
+                    currentPage: currentPage
+                    };
+            $.ajax({
+                url: "process/findbook.php",
+                data: data,
+                type: "post",
+                success: (function(data){
+                        json = jQuery.parseJSON(data);
+                        $("#findResult").html(json.html);
+                        $(function() {
+                            $('.pagination').pagination('updateItems', json.itemsCount);
+                        });
+                })
+            });//koniec ajax 
+        }//koniec funkcji pobierz
+        
+        $(function() {
+            $('.pagination').pagination({
+                items: 10,
+                itemsOnPage: 5,
+                cssStyle: 'light-theme',
+                onPageClick: function(pageNumber){
+                    currentPage=pageNumber;
+                    pobierz();
+                    }
+            });
+        });
+        $('.pagination').hide();
+
+
+        $('#search').click(function(){
+            pobierz();
+            $('.pagination').show();
+        });//koniec funkcji zdarzenia click
+
+     });//koniec funkcji document ready
+
+    </script>
  </head>
  <body>
  	<h1>Witaj w systemie biblioteki elektronicznej</h1>
- 	<form action="index.php" method="get">
- 		<p>Szukaj książek</p>
- 		<input type="text" name="authorName" placeholder="Imie autora"><br>
- 		<input type="text" name="authorSurname" placeholder="Nazwisko autora"><br>
- 		<input type="text" name="title" placeholder="Tytul książki"><br>
- 		<button type="submit" name="search" value="ok">Szukaj</button>
- 	</form>
-
- 	<div id="findResult">
- 		<?php 
- 			if(isset($_GET['search'])&&$_GET['search']=="ok"){
- 				include 'process/findbook.php';
- 				if($viewBag!=false){
- 					echo "<p>Znaleziono ".count($viewBag)." pozycji:</p>";
-					echo "<table border='solid'>";
-					foreach ($viewBag as $book) {
-
-					 	echo "<tr><td>".$book->getAuthor()."</td><td>".$book->getTitle()."</td><td>".($book->getIsBorrowed()==1 ? "wypożyczona" : "dostepna/<a href='#'>wypożycz</a>")."</td></tr>";
-					 } 
-					 echo "</table>";
-				}
- 			}
- 		 ?>
- 	</div>
  	
+ 		<p>Szukaj książek</p>
+ 		<input type="text" id="authorName" value="" placeholder="Imie autora"><br>
+ 		<input type="text" id="authorSurname" value="" placeholder="Nazwisko autora"><br>
+ 		<input type="text" id="title" value="" placeholder="Tytul książki"><br>
+ 		<button id="search">Szukaj</button>
+ 	
+
+ 	<div id="findResult"></div>
+
+    <div class="pagination"></div>
  </body>
  </html>
